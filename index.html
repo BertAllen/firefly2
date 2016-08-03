@@ -1,0 +1,49 @@
+<html ng-app="MasterController">
+<head>
+    <meta charset="UTF-8">
+    <title>Firefly Simulation</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    
+    
+    
+</head>
+<body style="background: #444;" ng-controller="FireflyController as fc">
+    <!--{{2+2}}-->
+<div>
+    
+    <button ng-click="waitForMe()">{{btnText}} -- Iterations = {{iterations}}</button>
+    <label for="Redish">Red Channel</label>
+    <input name="Redish" type="checkbox" ng-model="redish">
+    <label for="Greenish">Green Channel</label>
+    <input name="Greenish" type="checkbox" ng-model="greenish">
+    <label for="Blueish">Blue Channel</label>
+    <input name="Blueish" type="checkbox" ng-model="blueish">
+</div>
+    <!--<div ng-repeat="bush in quilt track by $index">
+            <div ng-repeat="bug in bush track by $index">-->
+        <!--<h4>A bug {{item}}</h4>-->
+                
+        <!--<div id="field" style="margin: 10px; border: solid; color: black">-->
+        <!--</div>-->
+        <svg width="480" height="480"></svg>
+
+    <!--<canvas id="canvas" width="480" height="480" style="border: solid black 16px">
+</canvas>-->
+<!--Canvas not supported   style="top: {{y}}%; left: {{x}}%"
+</canvas>
+
+<canvas id="example" width="200" height="200">
+This text is displayed if your browser does not support HTML5 Canvas.-->
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="d3.min.js"></script>
+    <!--<script src="app/app.js"></script>-->
+        <script src="app/firefly.js"></script>
+
+</body>
+</html>
