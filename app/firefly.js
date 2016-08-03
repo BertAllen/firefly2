@@ -1,19 +1,29 @@
-angular.module("MasterController", [])
-    .controller("FireflyController", function ($scope, $interval) {
-    $scope.btnText = "Start";
+;(function(){
 
-    $scope.redish = true;
-    $scope.greenish = true;
-    $scope.blueish = true;
-    $scope.iterations = 0;
+    angular.module("MasterController", [])
+        .component("firefly", {
+            templateUrl: "app/firefly.html",
+            controller: FireflyController,
+            controllerAs: "ffc"
+        });
+    
+    function FireflyController($interval) {
+        const ffc = this;
+
+    ffc.btnText = "Start";
+
+    ffc.redish = true;
+    ffc.greenish = true;
+    ffc.blueish = true;
+    ffc.iterations = 0;
     //color layer --v
 
-    $scope.quilt = [];
+    ffc.quilt = [];
     var data = [];
-    $scope.colorLayer = function () {
+    ffc.colorLayer = function () {
         //populating the grid    
         for (var x = 0; x < 80; x++) {
-            $scope.quilt[x] = [];
+            ffc.quilt[x] = [];
             for (var y = 0; y < 80; y++) {
                 var obj = {
                     red: Math.floor(Math.random() * 256),
@@ -23,10 +33,10 @@ angular.module("MasterController", [])
                     xx: x,
                     yy: y,
                 }
-                obj.netColor = $scope.colorConverter(obj);
-                $scope.quilt[x][y] = obj;
-                data.push($scope.quilt[x][y]);
-                // $scope.drawMe(obj.netColor);
+                obj.netColor = ffc.colorConverter(obj);
+                ffc.quilt[x][y] = obj;
+                data.push(ffc.quilt[x][y]);
+                // ffc.drawMe(obj.netColor);
 
             }
         }
@@ -43,17 +53,17 @@ angular.module("MasterController", [])
                         if (m == 80) { m = 0 }
                         if (n == -1) { n = 79 }
                         if (n == 80) { n = 0 }
-                        $scope.quilt[x][y].neighbors.push($scope.quilt[m][n]);
+                        ffc.quilt[x][y].neighbors.push(ffc.quilt[m][n]);
                     }
                 }
             }
         }
-        window.quilt = $scope.quilt; // use to view quilt values
-        return $scope.quilt;
+        window.quilt = ffc.quilt; // use to view quilt values
+        return ffc.quilt;
     }//end of colorLayer function
 
     //syncron --v      package com.Atavia;
-    $scope.syncron = function (obj) {
+    ffc.syncron = function (obj) {
         var color = ["red", "green", "blue"]
         //here is the syncro logic
         for (n = 0; n < 3; n++) {
@@ -146,24 +156,24 @@ angular.module("MasterController", [])
         return;
     }// end of syncron function
 
-    $scope.nightTime = function () {
+    ffc.nightTime = function () {
         $('#field').empty();
-        if ($scope.btnText === "Start") {
-            $scope.btnText = "Continue";
-            // $scope.colorLayer();
+        if (ffc.btnText === "Start") {
+            ffc.btnText = "Continue";
+            // ffc.colorLayer();
         }
         // else {
-        //     $scope.btnText = "Start";
+        //     ffc.btnText = "Start";
         // }
         var loops = 0;
         while (loops < 10) {
             for (var y = 0; y < 80; y++) {
                 for (var x = 0; x < 80; x++) {
-                    $scope.syncron($scope.quilt[x][y]);
+                    ffc.syncron(ffc.quilt[x][y]);
                     //print out quilt obj here ...........
 
-                    $scope.quilt[x][y].netColor = $scope.colorConverter($scope.quilt[x][y]);
-                    // $scope.drawMe($scope.quilt[x][y].netColor);
+                    ffc.quilt[x][y].netColor = ffc.colorConverter(ffc.quilt[x][y]);
+                    // ffc.drawMe(ffc.quilt[x][y].netColor);
                 }//end of x loop
             }//end of y loop
             dThreeDraw(data);
@@ -172,7 +182,7 @@ angular.module("MasterController", [])
     }//end nightTime function 
 
 // beginning of drawMe function ..................................    
-    $scope.drawMe = function (squareColor) {
+    ffc.drawMe = function (squareColor) {
         $(document).ready(function () {
             var unitSize = 6; // width (and height) of one square
             var unitsWide = 80; // number of squares along x-axis
@@ -201,7 +211,7 @@ angular.module("MasterController", [])
             var svg = d3.selectAll("svg");
                 // .attr("width", 480)
                 // .attr("height", 480);
-            debugger;
+            // debugger;
             var square = svg.selectAll("rect")
                 .data(data)
                 .attr("width", 6).attr("height", 6)
@@ -217,9 +227,9 @@ angular.module("MasterController", [])
 
 
     // colors converted to hex values here --v
-    $scope.colorConverter = function (obj) {
+    ffc.colorConverter = function (obj) {
         var colorOut = "#";
-        if (!$scope.redish) {
+        if (!ffc.redish) {
             colorOut += "00";
         } else {
             if (obj.red.toString(16).length == 1) {
@@ -227,7 +237,7 @@ angular.module("MasterController", [])
             }
             colorOut += obj.red.toString(16);
         }
-        if (!$scope.greenish) {
+        if (!ffc.greenish) {
             colorOut += "00";
         } else {
             if (obj.green.toString(16).length == 1) {
@@ -235,7 +245,7 @@ angular.module("MasterController", [])
             }
             colorOut += obj.green.toString(16);
         }
-        if (!$scope.blueish) {
+        if (!ffc.blueish) {
             colorOut += "00";
         } else {
             if (obj.blue.toString(16).length == 1) {
@@ -247,20 +257,22 @@ angular.module("MasterController", [])
     }
 
     // timeout function that will allow for updating the view --v    
-    $scope.waitForMe = function () {
-        if ($scope.btnText === "Start") {
-            $scope.colorLayer();
+    ffc.waitForMe = function () {
+        if (ffc.btnText === "Start") {
+            ffc.colorLayer();
         }
-        $scope.hitme++;
+        ffc.hitme++;
         // var count = 5;
         // var x = $interval(function(){  
         // for (var ticks = 0; ticks < 5; ticks++){
         // count--;
-        $scope.iterations++;
-        $scope.nightTime();
-        // if (!$scope.reddish || !$scope.greenish || !$scope.blueish) {
+        ffc.iterations++;
+        ffc.nightTime();
+        // if (!ffc.reddish || !ffc.greenish || !ffc.blueish) {
         //     // $interval.cancel(x)
         // }
         // } //, 3000 )
     }
-})
+    }
+    
+}());

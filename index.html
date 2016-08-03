@@ -9,25 +9,16 @@
     
     
 </head>
-<body style="background: #444;" ng-controller="FireflyController as fc">
+<body style="background: #444;">
     <!--{{2+2}}-->
-<div>
-    
-    <button ng-click="waitForMe()">{{btnText}} -- Iterations = {{iterations}}</button>
-    <label for="Redish">Red Channel</label>
-    <input name="Redish" type="checkbox" ng-model="redish">
-    <label for="Greenish">Green Channel</label>
-    <input name="Greenish" type="checkbox" ng-model="greenish">
-    <label for="Blueish">Blue Channel</label>
-    <input name="Blueish" type="checkbox" ng-model="blueish">
-</div>
+
     <!--<div ng-repeat="bush in quilt track by $index">
             <div ng-repeat="bug in bush track by $index">-->
         <!--<h4>A bug {{item}}</h4>-->
                 
         <!--<div id="field" style="margin: 10px; border: solid; color: black">-->
         <!--</div>-->
-        <svg width="480" height="480"></svg>
+        <firefly></firefly>
 
     <!--<canvas id="canvas" width="480" height="480" style="border: solid black 16px">
 </canvas>-->
